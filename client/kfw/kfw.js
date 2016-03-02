@@ -22,7 +22,7 @@
           controller:'roomControl'
         })
         .otherwise({
-          redirectTo:'/login'
+          redirectTo:'/register'
         });
     }])
     .factory('EasemobService',['$rootScope','$location',function($rootScope,$location){
@@ -34,7 +34,7 @@
       Easemob.im.config = {
         xmppURL: 'wss://im-api.easemob.com/ws/',
         apiURL: '',
-        appkey: "malinna#tangbox",
+        appkey: "baotang#test",
         https : true
       };
       conn.init({
