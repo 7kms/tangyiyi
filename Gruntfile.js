@@ -18,5 +18,17 @@ module.exports = function (grunt) {
   // Define the configuration for all the tasks
   grunt.initConfig({
 
+      jade:{
+        debug: {
+          options: {
+            data: {
+              debug: true
+            }
+          },
+          files:{
+            './client/kfw/test.html' : './client/kfw/test.jade'
+          }
+        }
+      }
   });
 };
