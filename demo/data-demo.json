@@ -1,0 +1,49 @@
+{
+  "onsiteJobId": 1,
+  "questionItems": [
+    {
+      "question": "大傻子",
+      "type": "single",
+      "optionList": [
+        {
+          "score": 10,
+          "option": "选项一",
+          "optionOrder": 1
+        },
+        {
+          "score": 10,
+          "option": "选项二",
+          "optionOrder": 2
+        }
+      ]
+    },
+    {
+      "question": "二傻子",
+        "type": "multiple",
+        "optionList": [
+        {
+        "score": 10,
+        "option": "选项一",
+        "optionOrder": 1
+        },
+        {
+        "score": 10,
+        "option": "选项二",
+        "optionOrder": 2
+        }
+      ]
+    }
+  ],
+  "answerEvaluates": [
+    {
+      "scoreStart": 0,
+      "scoreEnd": 40,
+      "evaluate": "对你们无语"
+    },
+    {
+      "scoreStart": 41,
+      "scoreEnd": 60,
+      "evaluate": "傻子一个"
+    }
+  ]
+}

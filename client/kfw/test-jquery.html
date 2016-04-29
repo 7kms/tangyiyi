@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>test-jquery</title>
+</head>
+<body>
+
+
+<script src="../bower_components/jquery/dist/jquery.js"></script>
+<script>
+    $(function(){
+       console.log(q);
+    });
+    $(window).load(function(){
+        console.log(333);
+    })
+</script>
+<script>
+    var q = 2;
+    for(var i=1;i<100;i++){
+        q = q*q;
+    }
+    console.log(q);
+</script>
+</body>
+</html>

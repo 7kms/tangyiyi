@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>test-angular-animate</title>
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <style type="text/css">
+        /* make our pages be full width and full height */
+        /* positioned absolutely so that the pages can overlap each other as they enter and leave */
+        .page        {
+            bottom:0;
+            padding-top:200px;
+            position:absolute;
+            text-align:center;
+            top:0;
+            width:100%;
+        }
+        .page h1     { font-size:60px; }
+        .page a     { margin-top:50px; }
+        .ng-enter             { animation: scaleUp 0.5s both ease-in; z-index: 8888; }
+        .ng-leave             { animation: slideOutLeft 0.5s both ease-in; z-index: 9999; }
+
+        /* PAGES (specific colors for each page)
+        ============================================================================= */
+        .page-home         { background:#00D0BC; color:#00907c; }
+        .page-about     { background:#E59400; color:#a55400; }
+        .page-contact     { background:#ffa6bb; color:#9e0000; }
+
+        /* ANIMATIONS
+============================================================================= */
+
+        /* leaving animations ----------------------------------------- */
+        /* rotate and fall */
+        @keyframes rotateFall {
+            0%         { transform: rotateZ(0deg); }
+            20%     { transform: rotateZ(10deg); animation-timing-function: ease-out; }
+            40%     { transform: rotateZ(17deg); }
+            60%     { transform: rotateZ(16deg); }
+            100%     { transform: translateY(100%) rotateZ(17deg); }
+        }
+
+        /* slide in from the bottom */
+        @keyframes slideOutLeft {
+            to         { transform: translateX(-100%); }
+        }
+
+        /* rotate out newspaper */
+        @keyframes rotateOutNewspaper {
+            to         { transform: translateZ(-3000px) rotateZ(360deg); opacity: 0; }
+        }
+
+        /* entering animations --------------------------------------- */
+        /* scale up */
+        @keyframes scaleUp {
+            from     { opacity: 0.3; -webkit-transform: scale(0.8); }
+        }
+
+        /* slide in from the right */
+        @keyframes slideInRight {
+            from     { transform:translateX(100%); }
+            to         { transform: translateX(0); }
+        }
+
+        /* slide in from the bottom */
+        @keyframes slideInUp {
+            from     { transform:translateY(100%); }
+            to         { transform: translateY(0); }
+        }
+    </style>
+    <script src="../bower_components/angular/angular.min.js"></script>
+    <script src="../bower_components/angular-route/angular-route.min.js"></script>
+    <script src="../bower_components/angular-animate/angular-animate.js"></script>
+</head>
+<!-- apply our angular app -->
+<body ng-app="animateApp">
+        <!-- inject our views using ng-view -->
+        <!-- each angular controller applies a different class here -->
+        <div class="page {{ pageClass }}" ng-view></div>
+
+        <script type="text/ng-template" id="page-home.html">
+            <!-- page-home.html -->
+            <h1>Angular Animations Shenanigans</h1>
+            <h2>Home</h2>
+            <a href="#about" class="btn btn-success btn-lg">About</a>
+            <a href="#contact" class="btn btn-danger btn-lg">Contact</a>
+        </script>
+        <script type="text/ng-template" id="page-about.html">
+            <h1>Animating Pages Is Fun</h1>
+            <h2>About</h2>
+
+            <a href="#/" class="btn btn-primary btn-lg">Home</a>
+            <a href="#contact" class="btn btn-danger btn-lg">Contact</a>
+        </script>
+        <script type="text/ng-template" id="page-contact.html">
+            <h1>Tons of Animations</h1>
+            <h2>Contact</h2>
+
+            <a href="#/" class="btn btn-primary btn-lg">Home</a>
+            <a href="#about" class="btn btn-success btn-lg">About</a>
+        </script>
+    <script>
+        var animateApp = angular.module('animateApp',['ngAnimate','ngRoute']);
+        animateApp.config(function($routeProvider) {
+            $routeProvider
+                // home page
+                .when('/', {
+                    templateUrl: 'page-home.html',
+                    controller: 'mainController'
+                })
+                // about page
+                .when('/about', {
+                    templateUrl: 'page-about.html',
+                    controller: 'aboutController'
+                })
+                // contact page
+                .when('/contact', {
+                    templateUrl: 'page-contact.html',
+                    controller: 'contactController'
+                })
+                .otherwise({
+                    templateUrl: 'page-home.html',
+                    controller: 'mainController'
+                });
+        });
+        // CONTROLLERS ============================================
+        // home page controller
+        animateApp.controller('mainController', function($scope) {
+            $scope.pageClass = 'page-home';
+        });
+
+        // about page controller
+        animateApp.controller('aboutController', function($scope) {
+            $scope.pageClass = 'page-about';
+        });
+
+        // contact page controller
+        animateApp.controller('contactController', function($scope) {
+            $scope.pageClass = 'page-contact';
+        });
+    </script>
+</body>
+</html>
