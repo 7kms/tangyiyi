@@ -20,8 +20,27 @@
         }
         .page h1     { font-size:60px; }
         .page a     { margin-top:50px; }
-        .ng-enter             { animation: scaleUp 0.5s both ease-in; z-index: 8888; }
-        .ng-leave             { animation: slideOutLeft 0.5s both ease-in; z-index: 9999; }
+
+
+        .ng-enter         { z-index: 8888; }
+        .ng-leave         { z-index: 9999; }
+
+        /* page specific animations ------------------------ */
+
+        /* home -------------------------- */
+        .page-home.ng-enter         { animation: scaleUp 0.5s both ease-in; }
+        .page-home.ng-leave         { transform-origin: 0% 0%; animation: rotateFall 1s both ease-in; }
+
+        /* about ------------------------ */
+        .page-about.ng-enter         { animation:slideInRight 0.5s both ease-in; }
+        .page-about.ng-leave        { animation:slideOutLeft 0.5s both ease-in; }
+
+        /* contact ---------------------- */
+        .page-contact.ng-leave      { transform-origin: 50% 50%; animation: rotateOutNewspaper .5s both ease-in; }
+        .page-contact.ng-enter         { animation:slideInUp 0.5s both ease-in; }
+
+
+
 
         /* PAGES (specific colors for each page)
         ============================================================================= */
