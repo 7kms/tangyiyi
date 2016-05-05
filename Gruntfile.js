@@ -2,13 +2,10 @@
 'use strict';
 
 module.exports = function (grunt) {
-  var localConfig;
-  try {
-    localConfig = require('./server/config/local.env');
-  } catch(e) {
-    localConfig = {};
-  }
-
+  var app = {
+    client:'./client',
+    server:'./server'
+  };
   // Load grunt tasks automatically, when needed
   require('jit-grunt')(grunt);
 
@@ -17,17 +14,36 @@ module.exports = function (grunt) {
 
   // Define the configuration for all the tasks
   grunt.initConfig({
-
+      app:app,
+      watch:{
+        js:{
+          files:['<% app.client %>/scss/*{,/*}.js'],
+          tasks:['jshint','ugulify']
+        },
+        css:{
+          files:['<% app.client %>/scss/*{,/*}.scss'],
+          tasks:['sass']
+        },
+        jade:{
+          files:['<% app.client %>/*{,/*}.jade'],
+          tasks:['jade']
+        }
+      },
       jade:{
         debug: {
           options: {
             data: {
               debug: true
-            }
+            },
+            pretty: true
           },
-          files:{
-            './client/kfw/test.html' : './client/kfw/test.jade'
-          }
+          files:[{
+            expand: true,
+            cwd:'<%= app.client %>/',
+            src:['*{,/}*.jade'],
+            dest:'html',
+            ext:'.html'
+          }]
         }
       }
   });
