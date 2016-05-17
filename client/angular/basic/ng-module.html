@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <style type="text/css">
+
+        .ng-invalid{
+            border-color: red;
+        }
+    </style>
+</head>
+<body ng-app="myApp">
+
+<div class="container" ng-controller="modelController">
+    <form name="testForm">
+        <div class="form-group">
+            <label>name</label>
+            <input type="text" class="form-control" ng-model="name" required placeholder="type name">
+        </div>
+        <div class="form-group">
+            <label>score</label>
+            <input type="text" class="form-control" ng-model="score" required one-to-ten placeholder="type score">
+        </div>
+
+        <div class="form-group">
+            <button  type="button" class="btn btn-block btn-primary bg-primary" ng-disabled="testForm.$invalid">submit</button>
+        </div>
+    </form>
+</div>
+
+<script src="../../bower_components/angular/angular.min.js"></script>
+<script src="../../bower_components/angular-route/angular-route.min.js"></script>
+<script src="../../bower_components/angular-animate/angular-animate.js"></script>
+
+<script>
+    angular.module('myApp',[])
+            .directive('oneToTen',['$filter',function($filter){
+                return {
+                    restrict:'A',
+                    require: '?ngModel',
+                    link:function(scope,ele,attr,ngModel){
+                        if(!ngModel){
+                            return;
+                        }
+                        ngModel.$formatters.unshift(function(v) {
+                            console.log($filter('number')(v));
+                            return $filter('number')(v);
+                        });
+                        ngModel.$parsers.unshift(function(viewValue){
+                            var i = parseInt(viewValue);
+                            if(i>=0 && i<=10){
+                                ngModel.$setValidity('oneToTen',true);
+                                return viewValue;
+                            }else{
+                                ngModel.$setValidity('oneToTen',false);
+                                return undefined;
+                            }
+                        });
+                    }
+                }
+            }])
+            .controller('modelController',function($scope){
+
+            })
+</script>
+</body>
+</html>

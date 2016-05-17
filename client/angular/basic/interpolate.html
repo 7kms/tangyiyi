@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Title</title>
+</head>
+<body ng-app="myApp">
+
+
+<div ng-controller="myController">
+    <input ng-model="to"
+           type="email"
+           placeholder="Recipient" />
+    <textarea ng-model="emailBody"></textarea>
+    <pre>__previewText__</pre>
+</div>
+
+
+<div ng-controller="filterDemoCtrl">
+    <p>__name__</p>
+    <p>__1899900|number__</p>
+</div>
+<script src="../../bower_components/angular/angular.min.js"></script>
+<script src="../../bower_components/angular-route/angular-route.min.js"></script>
+<script src="../../bower_components/angular-animate/angular-animate.js"></script>
+
+<script>
+    var app = angular.module('emailParse',['ngRoute','ngAnimate']);
+    app.config(['$interpolateProvider',function($interpolateProvider){
+        $interpolateProvider.startSymbol("__");
+        $interpolateProvider.endSymbol("__");
+    }])
+    .factory('EmailParser',['$interpolate',function($interpolate){
+        //处理解析的服务
+        return {
+            parse:function(text,context){
+                if(!text){
+                    return text;
+                }
+                var temp = $interpolate(text);
+                return  temp(context);
+            }
+        }
+    }]);
+    var myApp = angular.module('myApp',['emailParse']);
+    myApp.controller('myController',function($scope,EmailParser){
+        $scope.$watch('emailBody',function(body){
+            console.log('body:',body);
+            $scope.previewText = EmailParser.parse(body,{to:$scope.to});
+        });
+
+        $scope.$watch('to',function(value){
+            console.log('to',value);
+
+        });
+    });
+    myApp.controller('filterDemoCtrl',function($scope,$filter){
+        $scope.name = $filter('uppercase')("baotang");
+    })
+</script>
+</body>
+</html>

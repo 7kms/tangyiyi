@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Title</title>
+
+    <style type="text/css">
+
+        .parent{
+            height: 260px;
+            background-color: #abcdef;
+            display: -webkit-box;
+            -webkit-box-align: center;
+            -webkit-box-orient: vertical;
+            -webkit-box-pack: center;
+
+        }
+
+        .parent > div{
+            width: 50%;
+            height: 100px;
+            color: #fff;
+            text-align: center;
+            line-height: 100px;
+        }
+
+        .a{
+            background-color: red;
+        }
+        .b{
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+
+        <div class="parent">
+            <div class="a">a</div>
+            <div class="b">b</div>
+        </div>
+</body>
+</html>
